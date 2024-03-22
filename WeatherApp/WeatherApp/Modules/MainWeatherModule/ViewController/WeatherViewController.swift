@@ -10,6 +10,9 @@ import CoreLocation
 
 class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     //ViewController Properties
+    let output: WeatherViewOutput
+    var model: WeatherViewModel?
+    
     private let cityLabel = UILabel()
     private let locationManager: CLLocationManager = CLLocationManager()
     
@@ -23,6 +26,15 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         setupUI()
     }
     
+    init(output: WeatherViewOutput) {
+        self.output = output
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }    
 }
 
 private extension WeatherViewController {
