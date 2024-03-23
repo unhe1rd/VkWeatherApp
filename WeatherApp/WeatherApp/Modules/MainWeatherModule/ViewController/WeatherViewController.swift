@@ -72,8 +72,9 @@ private extension WeatherViewController {
         
         tableView.layer.cornerRadius = 16
         tableView.register(TableViewCell.self, forCellReuseIdentifier: "TableViewCell")
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
+        tableView.showsVerticalScrollIndicator = false
+//        tableView.rowHeight = UITableView.automaticDimension
+//        tableView.estimatedRowHeight = 100
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 16),
@@ -107,28 +108,10 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+        return 50
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = Constants.cellsBackgroundColor // Задайте цвет фона для заголовка
-        
-        let titleLabel = UILabel()
-        titleLabel.text = "Заголовок таблицы" // Установите текст заголовка
-        titleLabel.textColor = Constants.textColorInCell
-        titleLabel.textAlignment = .center
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        headerView.addSubview(titleLabel)
-        
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 0),
-            titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16),
-            titleLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -8),
-        ])
-        
+        let headerView = TableViewHeaderCell()
         return headerView
     }
 }
