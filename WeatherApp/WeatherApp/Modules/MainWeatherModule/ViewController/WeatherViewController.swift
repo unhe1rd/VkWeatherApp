@@ -14,7 +14,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     private var weatherModel: [WeatherViewModel] = []
     private let locationManager: CLLocationManager = CLLocationManager()
     private let tableView = UITableView()
-    private let cityLabel = UILabel()
+    private let weatherViewHeader = WeatherViewHeader()
     
     
     
@@ -42,24 +42,18 @@ private extension WeatherViewController {
     func setupUI(){
         view.backgroundColor = Constants.backgroundColor
         
-        setupCityLabel()
+        setupWeatherViewHeader()
         setupTableView()
     }
-    
-    
-    func setupCityLabel(){
-        view.addSubview(cityLabel)
-        cityLabel.translatesAutoresizingMaskIntoConstraints = false
-        cityLabel.text = "Moscow"
-        cityLabel.font = UIFont.systemFont(ofSize: 32)
-        cityLabel.textColor = Constants.textColor
-        
-        
+
+    func setupWeatherViewHeader(){
+        view.addSubview(weatherViewHeader)
+        weatherViewHeader.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            cityLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            cityLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            cityLabel.heightAnchor.constraint(equalToConstant: 24)
+            weatherViewHeader.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            weatherViewHeader.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            weatherViewHeader.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
     
@@ -73,11 +67,10 @@ private extension WeatherViewController {
         tableView.layer.cornerRadius = 16
         tableView.register(TableViewCell.self, forCellReuseIdentifier: "TableViewCell")
         tableView.showsVerticalScrollIndicator = false
-//        tableView.rowHeight = UITableView.automaticDimension
-//        tableView.estimatedRowHeight = 100
+
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 16),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -32),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             tableView.heightAnchor.constraint(equalToConstant: 500)
@@ -90,8 +83,7 @@ private extension WeatherViewController {
 extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let tableViewHeight = tableView.bounds.height - tableView.sectionHeaderHeight
-        
-        return tableViewHeight / 8
+        return tableViewHeight / 8.7
     }
     
     // Реализуйте методы делегата и источника данных для вашего UITableView

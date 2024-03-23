@@ -22,14 +22,7 @@ final class TabBarController: UITabBarController {
 
 private extension TabBarController {
     
-//    func generateVC(viewController: UIViewController, title: String) -> UIViewController {
-//        viewController.tabBarItem.title = title
-//        
-//        return viewController
-//    }
-    
     func setupTabBar() {
-        view.backgroundColor = .lightGray
         tabBar.backgroundColor = .black
         tabBar.tintColor = .white
     }

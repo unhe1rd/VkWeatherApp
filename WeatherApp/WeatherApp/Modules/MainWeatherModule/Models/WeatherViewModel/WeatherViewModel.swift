@@ -10,8 +10,9 @@ import UIKit
 
 struct WeatherViewModel{
     let day: String
-    let temperature: Double
-    
+    let temperature: Int
+    let maxTemperature: Int
+    let 
     
     init(day: String, temperature: Double) {
         self.day = day

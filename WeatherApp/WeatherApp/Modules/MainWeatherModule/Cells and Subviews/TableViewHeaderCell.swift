@@ -60,7 +60,7 @@ private extension TableViewHeaderCell{
             titleImage.centerYAnchor.constraint(equalTo: centerYAnchor),
             titleImage.heightAnchor.constraint(equalToConstant: 30),
             titleImage.widthAnchor.constraint(equalToConstant: 30),
-            titleImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8)
+            titleImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
         ])
     }
 }

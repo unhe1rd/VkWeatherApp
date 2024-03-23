@@ -18,7 +18,6 @@ final class TableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         setupCell()
-        print(#function)
     }
     
     @available(*, unavailable)
@@ -37,10 +36,10 @@ private extension TableViewCell {
         backgroundColor = Constants.cellsBackgroundColor
         
         setupDayLabel()
-//        setupWeatherImage()
-//        setupTempetatureLabel()
-//        setupProgressBar()
-//        setupMaxTempetatureLabel()
+        setupWeatherImage()
+        setupTempetatureLabel()
+        setupProgressBar()
+        setupMaxTempetatureLabel()
     }
     
     
@@ -48,13 +47,14 @@ private extension TableViewCell {
         addSubview(dayLabel)
         dayLabel.translatesAutoresizingMaskIntoConstraints = false
         dayLabel.textAlignment = .left
-        dayLabel.font = UIFont(name: "Helvetica Neue", size: 16)
+        dayLabel.font = .boldSystemFont(ofSize: 24)
         dayLabel.textColor = Constants.textColorInCell
-        
-        dayLabel.text = "Friday"
+        dayLabel.shadowColor = .lightGray
+        dayLabel.text = "Fri"
         
         NSLayoutConstraint.activate([
-            dayLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            dayLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            dayLabel.trailingAnchor.constraint(equalTo: leadingAnchor, constant: 108),
             dayLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
@@ -66,13 +66,14 @@ private extension TableViewCell {
         weatherImage.tintColor = Constants.imageColor
         weatherImage.contentMode = .scaleAspectFit
         weatherImage.clipsToBounds = false
+        weatherImage.image = UIImage(systemName: "cloud")
         
-        weatherImage.image = UIImage(systemName: "cloud.fill")
-        
+        let imageSize:CGFloat = frame.height * 0.8
         NSLayoutConstraint.activate([
-            weatherImage.topAnchor.constraint(equalTo: topAnchor),
+            weatherImage.centerYAnchor.constraint(equalTo: centerYAnchor),
             weatherImage.leadingAnchor.constraint(equalTo: dayLabel.trailingAnchor, constant: 8),
-//            weatherImage.trailingAnchor.constraint(equalTo: <#T##NSLayoutAnchor<NSLayoutXAxisAnchor>#>)
+            weatherImage.widthAnchor.constraint(equalToConstant: imageSize),
+            weatherImage.heightAnchor.constraint(equalToConstant: imageSize)
         ])
     }
     
@@ -81,25 +82,31 @@ private extension TableViewCell {
         addSubview(tempetatureLabel)
         tempetatureLabel.translatesAutoresizingMaskIntoConstraints = false
         tempetatureLabel.textAlignment = .left
-        tempetatureLabel.font = UIFont(name: "Helvetica Neue", size: 16)
-        tempetatureLabel.textColor = Constants.textColor
+        tempetatureLabel.font = .systemFont(ofSize: 24)
+        tempetatureLabel.textColor = Constants.textColorInCell
+        
+        tempetatureLabel.text = "1°"
         
         NSLayoutConstraint.activate([
-            tempetatureLabel.leadingAnchor.constraint(equalTo: weatherImage.trailingAnchor, constant: 8),
-            tempetatureLabel.topAnchor.constraint(equalTo: topAnchor)
+            tempetatureLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            tempetatureLabel.leadingAnchor.constraint(equalTo: weatherImage.trailingAnchor, constant: 16)
         ])
     }
     
     
     func setupProgressBar(){
         addSubview(progressBar)
+        progressBar.translatesAutoresizingMaskIntoConstraints = false
+        
         progressBar.progress = 0.5
         progressBar.progressTintColor = Constants.progressColor
+        progressBar.layer.cornerRadius = 1
         
         NSLayoutConstraint.activate([
+            progressBar.centerYAnchor.constraint(equalTo: centerYAnchor),
             progressBar.leadingAnchor.constraint(equalTo: tempetatureLabel.trailingAnchor, constant: 8),
-            progressBar.widthAnchor.constraint(equalToConstant: 100),
-            progressBar.topAnchor.constraint(equalTo: topAnchor)
+            progressBar.trailingAnchor.constraint(equalTo: tempetatureLabel.trailingAnchor, constant: 108),
+            progressBar.heightAnchor.constraint(equalToConstant: 5)
         ])
     }
     
@@ -108,12 +115,14 @@ private extension TableViewCell {
         addSubview(maxTempetatureLabel)
         maxTempetatureLabel.translatesAutoresizingMaskIntoConstraints = false
         maxTempetatureLabel.textAlignment = .left
-        maxTempetatureLabel.font = UIFont(name: "Helvetica Neue", size: 16)
-        maxTempetatureLabel.textColor = Constants.textColor
+        maxTempetatureLabel.font = .systemFont(ofSize: 24)
+        maxTempetatureLabel.textColor = Constants.textColorInCell
+        
+        maxTempetatureLabel.text = "5°"
         
         NSLayoutConstraint.activate([
-            maxTempetatureLabel.leadingAnchor.constraint(equalTo: progressBar.trailingAnchor, constant: 8),
-            maxTempetatureLabel.topAnchor.constraint(equalTo: topAnchor)
+            maxTempetatureLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            maxTempetatureLabel.leadingAnchor.constraint(equalTo: progressBar.trailingAnchor, constant: 8)
         ])
     }
 }

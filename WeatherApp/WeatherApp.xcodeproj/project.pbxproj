@@ -20,6 +20,7 @@
 		B46CA6D32BAD6B2A00B1221D /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46CA6D22BAD6B2A00B1221D /* WeatherViewModel.swift */; };
 		B46CA6D62BAE3F6B00B1221D /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46CA6D52BAE3F6B00B1221D /* TableViewCell.swift */; };
 		B46CA6D82BAED33D00B1221D /* TableViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46CA6D72BAED33D00B1221D /* TableViewHeaderCell.swift */; };
+		B46CA6DB2BAF56D800B1221D /* WeatherViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46CA6DA2BAF56D800B1221D /* WeatherViewHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		B46CA6D22BAD6B2A00B1221D /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		B46CA6D52BAE3F6B00B1221D /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		B46CA6D72BAED33D00B1221D /* TableViewHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeaderCell.swift; sourceTree = "<group>"; };
+		B46CA6DA2BAF56D800B1221D /* WeatherViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +125,7 @@
 				B46CA6CA2BAD68D700B1221D /* Presenter */,
 				B46CA6C72BAD687700B1221D /* Protocols */,
 				B46CA6C42BACDCF800B1221D /* ViewController */,
-				B46CA6D42BAE3F5B00B1221D /* Cells */,
+				B46CA6D42BAE3F5B00B1221D /* Cells and Subviews */,
 			);
 			path = MainWeatherModule;
 			sourceTree = "<group>";
@@ -191,13 +193,14 @@
 			path = WeatherViewModel;
 			sourceTree = "<group>";
 		};
-		B46CA6D42BAE3F5B00B1221D /* Cells */ = {
+		B46CA6D42BAE3F5B00B1221D /* Cells and Subviews */ = {
 			isa = PBXGroup;
 			children = (
 				B46CA6D52BAE3F6B00B1221D /* TableViewCell.swift */,
 				B46CA6D72BAED33D00B1221D /* TableViewHeaderCell.swift */,
+				B46CA6DA2BAF56D800B1221D /* WeatherViewHeader.swift */,
 			);
-			path = Cells;
+			path = "Cells and Subviews";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,6 +275,7 @@
 			files = (
 				B46CA6CF2BAD695200B1221D /* WeatherAssembly.swift in Sources */,
 				B46CA6D82BAED33D00B1221D /* TableViewHeaderCell.swift in Sources */,
+				B46CA6DB2BAF56D800B1221D /* WeatherViewHeader.swift in Sources */,
 				B46CA6D32BAD6B2A00B1221D /* WeatherViewModel.swift in Sources */,
 				B46CA6C92BAD688900B1221D /* WeatherProtocols.swift in Sources */,
 				B46CA6D62BAE3F6B00B1221D /* TableViewCell.swift in Sources */,
