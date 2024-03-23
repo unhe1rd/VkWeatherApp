@@ -16,8 +16,17 @@ final class WeatherPresenter {
 extension WeatherPresenter: WeatherModuleOutput{}
 
 extension WeatherPresenter: WeatherViewOutput{
-    
     func didLoadView() {
-//        loadData()
+        loadData()
+    }
+    
+    func getLocation() {
+        
+    }
+}
+
+private extension WeatherPresenter{
+    func loadData(){
+        
     }
 }

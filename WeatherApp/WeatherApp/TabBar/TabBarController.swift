@@ -37,10 +37,10 @@ private extension TabBarController {
     
     func setupTabs() {
 
-        let mainVC = WeatherViewController()
+        let mainVC = WeatherAssembly.assembly()
         mainVC.tabBarItem.image = UIImage(systemName: "smoke.fill")
         
-        let searchVC = WeatherViewController()
+        let searchVC = WeatherAssembly.assembly()
         searchVC.tabBarItem.image = UIImage(systemName: "location.magnifyingglass")
         
         

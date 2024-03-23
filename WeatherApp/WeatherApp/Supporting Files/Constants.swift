@@ -11,4 +11,8 @@ import UIKit
 enum Constants{
     static let backgroundColor = UIColor.black
     static let textColor = UIColor.white
+    static let imageColor = UIColor.white
+    static let progressColor = UIColor.magenta
+    static let textColorInCell = UIColor.black
+    static let cellsBackgroundColor = UIColor.white
 }

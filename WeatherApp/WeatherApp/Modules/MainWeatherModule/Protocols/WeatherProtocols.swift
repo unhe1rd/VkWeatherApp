@@ -13,11 +13,10 @@ protocol WeatherModuleInput {
 }
 
 protocol WeatherModuleOutput: AnyObject {
-    
 }
 
 protocol WeatherViewInput: AnyObject {
-//    func configure(with model: WeatherViewModel, with review: [WeatherCellModel])
+    func configure(with model: WeatherViewModel)
 }
 
 protocol WeatherViewOutput: AnyObject {
