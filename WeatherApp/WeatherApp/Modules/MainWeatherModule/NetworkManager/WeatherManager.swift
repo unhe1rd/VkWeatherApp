@@ -29,7 +29,7 @@ final class NetworkManager: NetworkManagerDescription {
         let lat = UserDefaults.standard.double(forKey: "latitude")
         let lon = UserDefaults.standard.double(forKey: "longitude")
         
-        guard let url = URL(string: "https://api.openweathermap.org/data/2.5/onecall?lat=\(lat)&lon=\(lon)&appid=\(NetworkManager.appId)") else {
+        guard let url = URL(string: "https://api.openweathermap.org/data/2.5/onecall?lat=\(lat)&lon=\(lon)&appid=\(NetworkManager.appId)&units=metric") else {
             completion(.failure(NetworkError.invalidURL))
             return
         }

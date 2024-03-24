@@ -15,9 +15,9 @@ struct WeatherViewModel {
 
 
 struct WeatherHeaderModel {
-    let date: Date
-    let sunrise: Date
-    let sunset: Date
+    let date: String
+    let sunrise: String
+    let sunset: String
     let temp: String
     let feels_like: String
     let pressure: String
@@ -29,7 +29,7 @@ struct WeatherHeaderModel {
     let wind_gust: String
     let weatherImage = UIImage()
     
-    init(date: Date, sunrise: Date, sunset: Date, temp: String, feels_like: String, pressure: String, humidity: String, uvi: String, visibility: String, wind_speed: String, wind_deg: String, wind_gust: String) {
+    init(date: String, sunrise: String, sunset: String, temp: String, feels_like: String, pressure: String, humidity: String, uvi: String, visibility: String, wind_speed: String, wind_deg: String, wind_gust: String) {
         self.date = date
         self.sunrise = sunrise
         self.sunset = sunset
@@ -46,25 +46,25 @@ struct WeatherHeaderModel {
 }
 
 struct WeatherCellModel{
-    let date: Date
+    let date: String
     let day: String
-    let minTemperature: Int
-    let maxTemperature: Int
-    let sunrise: Date
-    let sunset: Date
-    let moonrise: Date
-    let moonset: Date
+    let minTemperature: String
+    let maxTemperature: String
+    let sunrise: String
+    let sunset: String
+    let moonrise: String
+    let moonset: String
     let moon_phase: String
-    let pressure: Int
-    let humidity: Int
+    let pressure: String
+    let humidity: String
     let wind_speed: String
     let wind_deg: String
     let wind_gust: String
-    let rainChance: Int
-    let uvi: Double
+    let rainChance: Double
+    let uvi: String
     var weatherImage = UIImage()
         
-    init(date: Date, day: String, minTemperature: Int, maxTemperature: Int, sunrise: Date, sunset: Date, moonrise: Date, moonset: Date, moon_phase: String, pressure: Int, humidity: Int, wind_speed: String, wind_deg: String, wind_gust: String, rainChance: Int, uvi: Double, weatherImage: UIImage = UIImage()) {
+    init(date: String, day: String, minTemperature: String, maxTemperature: String, sunrise: String, sunset: String, moonrise: String, moonset: String, moon_phase: String, pressure: String, humidity: String, wind_speed: String, wind_deg: String, wind_gust: String, rainChance: Double, uvi: String, weatherImage: UIImage = UIImage()) {
         self.date = date
         self.day = day
         self.minTemperature = minTemperature

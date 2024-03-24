@@ -11,7 +11,8 @@ import CoreLocation
 class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     //ViewController Properties
     private let output: WeatherViewOutput
-    private var weatherModel: [WeatherViewModel] = []
+    private var weatherModel: WeatherViewModel?
+    private var weatherCellModel: [WeatherCellModel] = []
     private let locationManager: CLLocationManager = CLLocationManager()
     private let tableView = UITableView()
     private let weatherViewHeader = WeatherViewHeader()
@@ -73,7 +74,7 @@ private extension WeatherViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -32),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            tableView.heightAnchor.constraint(equalToConstant: 500)
+            tableView.heightAnchor.constraint(equalToConstant: 450)
         ])
         
     }
@@ -83,25 +84,27 @@ private extension WeatherViewController {
 extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let tableViewHeight = tableView.bounds.height - tableView.sectionHeaderHeight
-        return tableViewHeight / 8.7
+        return tableViewHeight / CGFloat(weatherCellModel.count)
     }
     
-    // Реализуйте методы делегата и источника данных для вашего UITableView
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return model?.data.count ?? 0 // Замените эту строку на логику, возвращающую количество ячеек таблицы
-        return 7
+        return weatherCellModel.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
-//        cell.configure(with: weatherModel[indexPath.row])
+        cell.configure(with: weatherCellModel[indexPath.row])
         return cell
     }
+    
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
+    
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = TableViewHeaderCell()
         return headerView
@@ -118,7 +121,7 @@ extension WeatherViewController {
         print(locationManager.location?.coordinate ?? "nil location")
     }
     
-    // Метод делегата CLLocationManager, который вызывается при успешном обновлении геолокации
+   
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             
@@ -133,16 +136,18 @@ extension WeatherViewController {
                 
                 if let placemark = placemarks?.first, let city = placemark.locality {
                     print("Город: \(city)")
-                    self.weatherViewHeader.cityLabel.text = "\(city)"  
+                    DispatchQueue.main.async {
+                        self.weatherViewHeader.getCity(with: city)
+                    }
                 }
             }
         }
     }
     
-    // Метод делегата CLLocationManager, который вызывается при изменении статуса разрешения на использование геолокации
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
-            locationManager.startUpdatingLocation() // Начать обновление геолокации, если разрешение предоставлено
+            locationManager.startUpdatingLocation()
         }
     }
 }
@@ -150,6 +155,13 @@ extension WeatherViewController {
 
 //Setup View by Presenter
 extension WeatherViewController: WeatherViewInput {
+    
     func configure(with model: WeatherViewModel) {
+        self.weatherModel = model
+        self.weatherCellModel = model.dailyWeather
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.weatherViewHeader.configure(with: model.currentWeather)
+        }
     }
 }
