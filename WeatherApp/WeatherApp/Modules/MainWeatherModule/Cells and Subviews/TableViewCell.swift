@@ -26,9 +26,14 @@ final class TableViewCell: UITableViewCell {
     }
     
     
-    func configure(with model: WeatherCellModel){
+    func configure(with model: WeatherCellModel, id: Int){
         let model = model
-        dayLabel.text = model.date
+        
+        if id == 0{
+            dayLabel.text = "Today"
+        }else {
+            dayLabel.text = model.date
+        }
         weatherImage.image = model.weatherImage
         tempetatureLabel.text = model.minTemperature
         progressBar.progress = Float(model.rainChance)

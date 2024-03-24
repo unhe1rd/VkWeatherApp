@@ -76,7 +76,7 @@ private extension WeatherViewController {
 
         
         NSLayoutConstraint.activate([
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -32),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             tableView.topAnchor.constraint(equalTo: weatherViewHeader.scrollView.bottomAnchor, constant: 16)
@@ -100,7 +100,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
-        cell.configure(with: weatherCellModel[indexPath.row])
+        cell.configure(with: weatherCellModel[indexPath.row], id: indexPath.row)
         return cell
     }
     
@@ -118,6 +118,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Я нажал на \(indexPath.row)")
+        
         let viewToPresent = WeatherViewHeader()
         viewToPresent.myLocationLabel.isHidden = true
         viewToPresent.delegate = self
