@@ -27,6 +27,23 @@ extension WeatherPresenter: WeatherViewOutput{
 
 private extension WeatherPresenter{
     func loadData(){
-        
+        let networkManager = NetworkManager.shared
+        networkManager.loadWeather() { [weak self] result in
+            DispatchQueue.global().async {
+//                self?.activityIndicatorView.stopAnimating()
+//                self?.doneButton.isEnabled = true
+                
+                switch result {
+                case .success(let weather):
+                    print(weather)
+                    self?.updateUI(with: weather)
+                case .failure(let failure):
+                    print(failure)
+                }
+            }
+        }
+    }
+    
+    func updateUI(with weather: WeatherResponse){
     }
 }

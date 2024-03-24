@@ -9,8 +9,9 @@ import UIKit
 
 
 class WeatherViewHeader: UIView {
-    private let cityLabel = UILabel()
-
+    let cityLabel = UILabel()
+    let activityIndicator = UIActivityIndicatorView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = Constants.backgroundColor
@@ -32,8 +33,6 @@ private extension WeatherViewHeader {
         print(#function)
         addSubview(cityLabel)
         cityLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        cityLabel.text = "Moscow"
         cityLabel.font = UIFont.systemFont(ofSize: 32)
         cityLabel.textColor = Constants.textColor
         
@@ -41,8 +40,7 @@ private extension WeatherViewHeader {
         NSLayoutConstraint.activate([
             cityLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             cityLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            cityLabel.heightAnchor.constraint(equalToConstant: 24),
-            cityLabel.bottomAnchor.constraint(equalTo: topAnchor, constant: 40)
+            cityLabel.bottomAnchor.constraint(equalTo: topAnchor, constant: 48)
         ])
     }
 }

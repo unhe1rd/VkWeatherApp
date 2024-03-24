@@ -120,8 +120,22 @@ extension WeatherViewController {
     
     // Метод делегата CLLocationManager, который вызывается при успешном обновлении геолокации
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if locations.last != nil {
-            // Используйте полученную геолокацию здесь
+        if let location = locations.last {
+            
+            UserDefaults.standard.set(location.coordinate.latitude, forKey: "latitude")
+            UserDefaults.standard.set(location.coordinate.longitude, forKey: "longitude")
+            
+            CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error) in
+                if let error = error {
+                    print("Reverse geocoding failed with error: \(error.localizedDescription)")
+                    return
+                }
+                
+                if let placemark = placemarks?.first, let city = placemark.locality {
+                    print("Город: \(city)")
+                    self.weatherViewHeader.cityLabel.text = "\(city)"  
+                }
+            }
         }
     }
     
