@@ -22,3 +22,7 @@ protocol WeatherViewInput: AnyObject {
 protocol WeatherViewOutput: AnyObject {
     func didLoadView()
 }
+
+protocol WeatherViewDelegate: AnyObject {
+    func didCloseWeatherView()
+}

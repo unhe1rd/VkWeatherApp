@@ -19,13 +19,14 @@ final class ScrollSubview: UIView {
         setupSubviewUI()
     }
     
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     func configue(with labelText: String, image: UIImage){
-        label.text = labelText
         subImage.image = image
+        label.text = labelText
     }
 }
 
@@ -44,11 +45,11 @@ private extension ScrollSubview {
         subImage.tintColor = .black
         subImage.contentMode = .scaleAspectFit
         subImage.clipsToBounds = false
-        
+        let subImageSize: CGFloat = 50
         NSLayoutConstraint.activate([
             subImage.topAnchor.constraint(equalTo: topAnchor),
-            subImage.heightAnchor.constraint(equalToConstant: 30),
-            subImage.widthAnchor.constraint(equalToConstant: 30),
+            subImage.heightAnchor.constraint(equalToConstant: subImageSize),
+            subImage.widthAnchor.constraint(equalToConstant: subImageSize),
             subImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
         ])
     }
@@ -63,9 +64,9 @@ private extension ScrollSubview {
         label.text = "123"
         
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: subImage.bottomAnchor, constant: 4),
+            label.topAnchor.constraint(equalTo: subImage.bottomAnchor, constant: 8),
             label.centerXAnchor.constraint(equalTo: subImage.centerXAnchor),
-            label.bottomAnchor.constraint(equalTo: topAnchor, constant: 48)
+            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
     }
 }

@@ -99,7 +99,7 @@ private extension WeatherPresenter{
     func setupDate(timestamp: Int) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MM yyyy"
+        dateFormatter.dateFormat = "dd.MM"
         let formattedDate = dateFormatter.string(from: date)
         return formattedDate
     }

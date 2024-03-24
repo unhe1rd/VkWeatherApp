@@ -28,7 +28,7 @@ final class TableViewCell: UITableViewCell {
     
     func configure(with model: WeatherCellModel){
         let model = model
-        dayLabel.text = model.day
+        dayLabel.text = model.date
         weatherImage.image = model.weatherImage
         tempetatureLabel.text = model.minTemperature
         progressBar.progress = Float(model.rainChance)

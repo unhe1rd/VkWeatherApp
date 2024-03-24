@@ -8,27 +8,37 @@
 import UIKit
 
 
-final class WeatherViewHeader: UIView {
+final class WeatherViewHeader: UIViewController {
+    weak var delegate: WeatherViewDelegate?
     private let cityLabel = UILabel()
-    private let myLocationLabel = UILabel()
-    private let scrollView = UIScrollView()
+    let myLocationLabel = UILabel()
+    let scrollView = UIScrollView()
+    let scrollHeaderLabel = UILabel()
     private let temperatureView = ScrollSubview()
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = Constants.backgroundColor
+    
+    override func viewDidLoad() {
         setupUI()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     func configure(with model: WeatherHeaderModel){
         temperatureView.configue(with: model.temp , image: UIImage(systemName: "thermometer.medium")!)
     }
     
+    func configureFromTable(with model: WeatherCellModel){
+        temperatureView.configue(with: model.maxTemperature , image: UIImage(systemName: "thermometer.medium")!)
+    }
+    
     func getCity(with city: String){
         cityLabel.text = "\(city)"
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        if isBeingDismissed {
+            delegate?.didCloseWeatherView()
+        }
     }
 }
 
@@ -37,27 +47,28 @@ private extension WeatherViewHeader {
         setupCityLabel()
         setupMyLocationLabel()
         setupScrollView()
+        setupScrollHeaderLabel()
         setupTemperatureView()
     }
     
     
     func setupCityLabel(){
-        addSubview(cityLabel)
+        view.addSubview(cityLabel)
         cityLabel.translatesAutoresizingMaskIntoConstraints = false
         cityLabel.font = UIFont.systemFont(ofSize: 32)
         cityLabel.textColor = Constants.textColor
         
         
         NSLayoutConstraint.activate([
-            cityLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            cityLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            cityLabel.bottomAnchor.constraint(equalTo: topAnchor, constant: 48)
+            cityLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
+            cityLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            cityLabel.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 48)
         ])
     }
     
     
     func setupMyLocationLabel(){
-        addSubview(myLocationLabel)
+        view.addSubview(myLocationLabel)
         myLocationLabel.translatesAutoresizingMaskIntoConstraints = false
         myLocationLabel.font = UIFont.systemFont(ofSize: 24)
         myLocationLabel.textColor = Constants.textColor
@@ -65,13 +76,13 @@ private extension WeatherViewHeader {
         
         NSLayoutConstraint.activate([
             myLocationLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 4),
-            myLocationLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            myLocationLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
     
     
     func setupScrollView(){
-        addSubview(scrollView)
+        view.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.backgroundColor = Constants.backgroundSubviewsColor
         scrollView.layer.cornerRadius = 16
@@ -80,18 +91,31 @@ private extension WeatherViewHeader {
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: myLocationLabel.bottomAnchor, constant: 16),
             scrollView.heightAnchor.constraint(equalToConstant: scrollViewHeight),
-            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         ])
     }
     
+    
+    func setupScrollHeaderLabel(){
+        view.addSubview(scrollHeaderLabel)
+        scrollHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
+        scrollHeaderLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        scrollHeaderLabel.textColor = Constants.textColorInSubviews
+        scrollHeaderLabel.text = "Current weather"
+        
+        NSLayoutConstraint.activate([
+            scrollHeaderLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 8),
+            scrollHeaderLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
+    }
     
     func setupTemperatureView(){
         scrollView.addSubview(temperatureView)
         temperatureView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            temperatureView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 8),
+            temperatureView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: 25),
             temperatureView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
             temperatureView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -8)
         ])

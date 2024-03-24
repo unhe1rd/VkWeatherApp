@@ -16,7 +16,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     private let locationManager: CLLocationManager = CLLocationManager()
     private let tableView = UITableView()
     private let weatherViewHeader = WeatherViewHeader()
-    
+    private var blackOverlayView = UIView()
     
     
     init(output: WeatherViewOutput) {
@@ -44,20 +44,25 @@ private extension WeatherViewController {
         view.backgroundColor = Constants.backgroundColor
         
         setupWeatherViewHeader()
-//        setupTableView()
+        setupTableView()
     }
 
     func setupWeatherViewHeader(){
-        view.addSubview(weatherViewHeader)
-        weatherViewHeader.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(weatherViewHeader.view)
+        weatherViewHeader.view.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            weatherViewHeader.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            weatherViewHeader.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            weatherViewHeader.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            weatherViewHeader.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            weatherViewHeader.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            weatherViewHeader.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
     
+    func setupBlackOverlayView(){
+        blackOverlayView = UIView(frame: self.view.bounds)
+        blackOverlayView.backgroundColor = UIColor.black
+        blackOverlayView.alpha = 0.5
+    }
     
     func setupTableView(){
         view.addSubview(tableView)
@@ -74,7 +79,7 @@ private extension WeatherViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -32),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            tableView.topAnchor.constraint(equalTo: weatherViewHeader.bottomAnchor, constant: 16)
+            tableView.topAnchor.constraint(equalTo: weatherViewHeader.scrollView.bottomAnchor, constant: 16)
         ])
         
     }
@@ -108,6 +113,21 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = TableViewHeaderCell()
         return headerView
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Я нажал на \(indexPath.row)")
+        let viewToPresent = WeatherViewHeader()
+        viewToPresent.myLocationLabel.isHidden = true
+        viewToPresent.delegate = self
+        
+        setupBlackOverlayView()
+        
+        view.addSubview(blackOverlayView)
+        viewToPresent.modalPresentationStyle = .popover
+        viewToPresent.configureFromTable(with: weatherCellModel[indexPath.row])
+        present(viewToPresent, animated: true, completion: nil)
     }
 }
 
@@ -163,5 +183,11 @@ extension WeatherViewController: WeatherViewInput {
             self.weatherViewHeader.configure(with: model.currentWeather)
             self.tableView.reloadData()
         }
+    }
+}
+
+extension WeatherViewController: WeatherViewDelegate {
+    func didCloseWeatherView() {
+        blackOverlayView.removeFromSuperview()
     }
 }
