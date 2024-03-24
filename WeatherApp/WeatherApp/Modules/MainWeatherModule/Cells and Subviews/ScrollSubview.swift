@@ -64,9 +64,9 @@ private extension ScrollSubview {
         label.text = "123"
         
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: subImage.bottomAnchor, constant: 8),
+            label.topAnchor.constraint(equalTo: topAnchor, constant: 60),
             label.centerXAnchor.constraint(equalTo: subImage.centerXAnchor),
-            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+            label.bottomAnchor.constraint(equalTo: topAnchor, constant: 100)
         ])
     }
 }

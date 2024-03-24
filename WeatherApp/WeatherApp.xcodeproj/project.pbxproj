@@ -24,6 +24,7 @@
 		B46CA6DE2BAF5D7600B1221D /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46CA6DD2BAF5D7600B1221D /* WeatherManager.swift */; };
 		B46CA6E02BAF5D9400B1221D /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46CA6DF2BAF5D9400B1221D /* WeatherResponse.swift */; };
 		B46CA6E32BB09F4400B1221D /* ScrollSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46CA6E22BB09F4400B1221D /* ScrollSubview.swift */; };
+		B46CA6E52BB0EF0400B1221D /* WeatherContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46CA6E42BB0EF0400B1221D /* WeatherContainerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		B46CA6DD2BAF5D7600B1221D /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		B46CA6DF2BAF5D9400B1221D /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
 		B46CA6E22BB09F4400B1221D /* ScrollSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollSubview.swift; sourceTree = "<group>"; };
+		B46CA6E42BB0EF0400B1221D /* WeatherContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherContainerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 				B46CA6D72BAED33D00B1221D /* TableViewHeaderCell.swift */,
 				B46CA6DA2BAF56D800B1221D /* WeatherViewHeader.swift */,
 				B46CA6E22BB09F4400B1221D /* ScrollSubview.swift */,
+				B46CA6E42BB0EF0400B1221D /* WeatherContainerView.swift */,
 			);
 			path = "Cells and Subviews";
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				B46CA6CF2BAD695200B1221D /* WeatherAssembly.swift in Sources */,
 				B46CA6D82BAED33D00B1221D /* TableViewHeaderCell.swift in Sources */,
 				B46CA6DB2BAF56D800B1221D /* WeatherViewHeader.swift in Sources */,
+				B46CA6E52BB0EF0400B1221D /* WeatherContainerView.swift in Sources */,
 				B46CA6E02BAF5D9400B1221D /* WeatherResponse.swift in Sources */,
 				B46CA6D32BAD6B2A00B1221D /* WeatherViewModel.swift in Sources */,
 				B46CA6DE2BAF5D7600B1221D /* WeatherManager.swift in Sources */,
