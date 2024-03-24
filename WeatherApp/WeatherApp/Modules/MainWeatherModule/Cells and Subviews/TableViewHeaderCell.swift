@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableViewHeaderCell: UIView {
+final class TableViewHeaderCell: UIView {
     let titleLabel = UILabel()
     let titleImage = UIImageView()
 

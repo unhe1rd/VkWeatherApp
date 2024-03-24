@@ -44,7 +44,7 @@ private extension WeatherViewController {
         view.backgroundColor = Constants.backgroundColor
         
         setupWeatherViewHeader()
-        setupTableView()
+//        setupTableView()
     }
 
     func setupWeatherViewHeader(){
@@ -74,7 +74,7 @@ private extension WeatherViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -32),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            tableView.heightAnchor.constraint(equalToConstant: 450)
+            tableView.topAnchor.constraint(equalTo: weatherViewHeader.bottomAnchor, constant: 16)
         ])
         
     }
@@ -160,8 +160,8 @@ extension WeatherViewController: WeatherViewInput {
         self.weatherModel = model
         self.weatherCellModel = model.dailyWeather
         DispatchQueue.main.async {
-            self.tableView.reloadData()
             self.weatherViewHeader.configure(with: model.currentWeather)
+            self.tableView.reloadData()
         }
     }
 }

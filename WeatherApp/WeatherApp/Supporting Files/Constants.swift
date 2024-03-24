@@ -12,10 +12,12 @@ enum Constants{
     //background
     static let backgroundColor = UIColor.black
     static let cellsBackgroundColor = UIColor.white
+    static let backgroundSubviewsColor = UIColor.white
     //text
     static let textColor = UIColor.white
     static let textShadowColor = UIColor.lightGray
     static let textColorInCell = UIColor.black
+    static let textColorInSubviews = UIColor.black
     //images and views
     static let imageColor = UIColor.black
     static let progressColor = UIColor(red: 135/255, green: 206/255, blue: 235/255, alpha: 1.0)

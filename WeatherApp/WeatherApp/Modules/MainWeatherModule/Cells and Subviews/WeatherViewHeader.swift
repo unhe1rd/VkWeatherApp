@@ -8,11 +8,11 @@
 import UIKit
 
 
-class WeatherViewHeader: UIView {
+final class WeatherViewHeader: UIView {
     private let cityLabel = UILabel()
     private let myLocationLabel = UILabel()
     private let scrollView = UIScrollView()
-    
+    private let temperatureView = ScrollSubview()
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = Constants.backgroundColor
@@ -24,7 +24,7 @@ class WeatherViewHeader: UIView {
     }
     
     func configure(with model: WeatherHeaderModel){
-        
+        temperatureView.configue(with: model.temp , image: UIImage(systemName: "thermometer.medium")!)
     }
     
     func getCity(with city: String){
@@ -36,6 +36,8 @@ private extension WeatherViewHeader {
     func setupUI(){
         setupCityLabel()
         setupMyLocationLabel()
+        setupScrollView()
+        setupTemperatureView()
     }
     
     
@@ -62,13 +64,37 @@ private extension WeatherViewHeader {
         myLocationLabel.text = "My Location (Today)"
         
         NSLayoutConstraint.activate([
-            myLocationLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 16),
+            myLocationLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 4),
             myLocationLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
     
     
     func setupScrollView(){
+        addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = Constants.backgroundSubviewsColor
+        scrollView.layer.cornerRadius = 16
+        let scrollViewHeight:CGFloat = 200
+        
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: myLocationLabel.bottomAnchor, constant: 16),
+            scrollView.heightAnchor.constraint(equalToConstant: scrollViewHeight),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
+        ])
+    }
+    
+    
+    func setupTemperatureView(){
+        scrollView.addSubview(temperatureView)
+        temperatureView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            temperatureView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 8),
+            temperatureView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
+            temperatureView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -8)
+        ])
         
     }
 }
