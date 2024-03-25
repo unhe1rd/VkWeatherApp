@@ -24,11 +24,12 @@ final class WeatherViewHeader: UIViewController {
     func configure(with model: WeatherHeaderModel){
         scrollHeaderLabel.text = "Current weather"
         containerView.configure(with: model)
+        
     }
     
     func configureFromTable(with model: WeatherCellModel){
         scrollHeaderLabel.text = "Weather on \(model.date)"
-        
+        containerView.configureFromTable(with: model)
     }
     
     func getCity(with city: String){

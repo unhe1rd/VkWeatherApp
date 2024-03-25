@@ -11,13 +11,11 @@ final class WeatherContainerView: UIView {
     private let temperatureView = ScrollSubview()
     private let sunsetView = ScrollSubview()
     private let sunriseView = ScrollSubview()
-    private let windSpeed = ScrollSubview()
-    private let windDeg = ScrollSubview()
-    private let windGust = ScrollSubview()
-    private let visibility = ScrollSubview()
-    private let uvi = ScrollSubview()
-    private let humidity = ScrollSubview()
-    private let pressure = ScrollSubview()
+    private let windSpeedView = ScrollSubview()
+    private let visibilityView = ScrollSubview()
+    private let uviView = ScrollSubview()
+    private let humidityView = ScrollSubview()
+    private let pressureView = ScrollSubview()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,7 +31,24 @@ final class WeatherContainerView: UIView {
     func configure(with model: WeatherHeaderModel){
         temperatureView.configue(with: model.temp , image: UIImage(systemName: "thermometer.medium")!)
         sunsetView.configue(with: model.sunset, image: UIImage(systemName: "sunset")!)
-        //доделать сетап всех сабью и начать поиск!
+        sunriseView.configue(with: model.sunrise, image: UIImage(systemName: "sunrise")!)
+        windSpeedView.configue(with: model.wind_speed, image: UIImage(systemName: "wind")!)
+        visibilityView.configue(with: model.visibility, image: UIImage(systemName: "eye")!)
+        uviView.configue(with: model.uvi, image: UIImage(systemName: "sun.dust")!)
+        humidityView.configue(with: model.humidity, image: UIImage(systemName: "humidity")!)
+        pressureView.configue(with: model.pressure, image: UIImage(systemName: "gauge")!)
+    }
+    
+    
+    func configureFromTable(with model: WeatherCellModel){
+        temperatureView.configue(with: model.maxTemperature , image: UIImage(systemName: "thermometer.medium")!)
+        sunsetView.configue(with: model.sunset, image: UIImage(systemName: "sunset")!)
+        sunriseView.configue(with: model.sunrise, image: UIImage(systemName: "sunrise")!)
+        windSpeedView.configue(with: model.wind_speed, image: UIImage(systemName: "wind")!)
+        visibilityView.configue(with: model.moonrise, image: UIImage(systemName: "moonrise")!)
+        uviView.configue(with: model.uvi, image: UIImage(systemName: "sun.dust")!)
+        humidityView.configue(with: model.humidity, image: UIImage(systemName: "humidity")!)
+        pressureView.configue(with: model.pressure, image: UIImage(systemName: "gauge")!)
     }
 }
 
@@ -42,13 +57,11 @@ private extension WeatherContainerView{
         setupTemperatureView()
         setupSunsetView()
         setupSunriseView()
-        setupWindSpeed()
-        setupWindDeg()
-        setupWindGust()
-        setupVisibility()
-        setupUvi()
-        setupHumidity()
-        setupPressure()
+        setupWindSpeedView()
+        setupVisibilityView()
+        setupUviView()
+        setupHumidityView()
+        setupPressureView()
     }
     
     func setupTemperatureView(){
@@ -68,7 +81,7 @@ private extension WeatherContainerView{
         
         NSLayoutConstraint.activate([
             sunsetView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 25),
-            sunsetView.leadingAnchor.constraint(equalTo: temperatureView.subImage.trailingAnchor, constant: 16),
+            sunsetView.leadingAnchor.constraint(equalTo: temperatureView.label.trailingAnchor, constant: 16),
             sunsetView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
         ])
     }
@@ -79,80 +92,60 @@ private extension WeatherContainerView{
         
         NSLayoutConstraint.activate([
             sunriseView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 25),
-            sunriseView.leadingAnchor.constraint(equalTo: sunsetView.subImage.trailingAnchor, constant: 16),
+            sunriseView.leadingAnchor.constraint(equalTo: sunsetView.label.trailingAnchor, constant: 16),
             sunriseView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
         ])
     }
     
-    func setupWindSpeed(){
-        addSubview(windSpeed)
-        windSpeed.translatesAutoresizingMaskIntoConstraints = false
-        
+    func setupWindSpeedView(){
+        addSubview(windSpeedView)
+        windSpeedView.translatesAutoresizingMaskIntoConstraints = false
+        windSpeedView.label.textAlignment = .center
         NSLayoutConstraint.activate([
-            windSpeed.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 25),
-            windSpeed.leadingAnchor.constraint(equalTo: sunriseView.subImage.trailingAnchor, constant: 16),
-            windSpeed.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
+            windSpeedView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 25),
+            windSpeedView.leadingAnchor.constraint(equalTo: sunriseView.label.trailingAnchor, constant: 16),
+            windSpeedView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
         ])
     }
     
-    func setupWindDeg(){
-        addSubview(windDeg)
-        windDeg.translatesAutoresizingMaskIntoConstraints = false
+    func setupVisibilityView(){
+        addSubview(visibilityView)
+        visibilityView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            windDeg.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 25),
-            windDeg.leadingAnchor.constraint(equalTo: windSpeed.subImage.trailingAnchor, constant: 16),
-            windDeg.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
+            visibilityView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 25),
+            visibilityView.leadingAnchor.constraint(equalTo: windSpeedView.label.trailingAnchor, constant: 16),
+            visibilityView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
         ])
     }
-    func setupWindGust(){
-        addSubview(windGust)
-        windGust.translatesAutoresizingMaskIntoConstraints = false
+    func setupUviView(){
+        addSubview(uviView)
+        uviView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            windGust.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 25),
-            windGust.leadingAnchor.constraint(equalTo: windDeg.subImage.trailingAnchor, constant: 16),
-            windGust.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
+            uviView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 25),
+            uviView.leadingAnchor.constraint(equalTo: visibilityView.label.trailingAnchor, constant: 16),
+            uviView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
         ])
     }
-    func setupVisibility(){
-        addSubview(visibility)
-        visibility.translatesAutoresizingMaskIntoConstraints = false
+    func setupHumidityView(){
+        addSubview(humidityView)
+        humidityView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            visibility.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 25),
-            visibility.leadingAnchor.constraint(equalTo: windGust.subImage.trailingAnchor, constant: 16),
-            visibility.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
+            humidityView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 25),
+            humidityView.leadingAnchor.constraint(equalTo: uviView.label.trailingAnchor, constant: 16),
+            humidityView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
         ])
     }
-    func setupUvi(){
-        addSubview(uvi)
-        uvi.translatesAutoresizingMaskIntoConstraints = false
+    func setupPressureView(){
+        addSubview(pressureView)
+        pressureView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            uvi.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 25),
-            uvi.leadingAnchor.constraint(equalTo: visibility.subImage.trailingAnchor, constant: 16),
-            uvi.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
-        ])
-    }
-    func setupHumidity(){
-        addSubview(humidity)
-        humidity.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            humidity.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 25),
-            humidity.leadingAnchor.constraint(equalTo: uvi.subImage.trailingAnchor, constant: 16),
-            humidity.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
-        ])
-    }
-    func setupPressure(){
-        addSubview(pressure)
-        pressure.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            pressure.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 25),
-            pressure.leadingAnchor.constraint(equalTo: humidity.subImage.trailingAnchor, constant: 16),
-            pressure.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
+            pressureView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 25),
+            pressureView.leadingAnchor.constraint(equalTo: humidityView.label.trailingAnchor, constant: 16),
+            pressureView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
         ])
     }
 }

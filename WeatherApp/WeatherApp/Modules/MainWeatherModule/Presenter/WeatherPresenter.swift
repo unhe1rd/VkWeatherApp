@@ -51,8 +51,8 @@ private extension WeatherPresenter{
             pressure: String(weather.current.pressure),
             humidity: String(weather.current.humidity),
             uvi: String(weather.current.uvi),
-            visibility: String(weather.current.visibility),
-            wind_speed: String(weather.current.wind_speed),
+            visibility: String(weather.current.visibility / 1000) + " km",
+            wind_speed: String(Int(weather.current.wind_speed)) + " m/s",
             wind_deg: String(weather.current.wind_deg),
             wind_gust: String(weather.current.wind_gust))
         
@@ -83,7 +83,7 @@ private extension WeatherPresenter{
                 moon_phase: String(itemWeather.moon_phase),
                 pressure: String(itemWeather.moon_phase),
                 humidity: String(itemWeather.humidity),
-                wind_speed: String(itemWeather.wind_speed),
+                wind_speed: String(Int(itemWeather.wind_speed)) + " m/s",
                 wind_deg: String(itemWeather.wind_deg),
                 wind_gust: String(itemWeather.wind_gust),
                 rainChance: Double(itemWeather.pop ?? 0),

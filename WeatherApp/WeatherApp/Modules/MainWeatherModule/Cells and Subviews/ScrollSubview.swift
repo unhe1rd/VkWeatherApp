@@ -61,7 +61,8 @@ private extension ScrollSubview {
         
         label.font = UIFont.systemFont(ofSize: 32)
         label.textColor = Constants.textColorInSubviews
-        label.text = "123"
+        label.textAlignment = .center
+        label.text = "-------"
         
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: topAnchor, constant: 60),
