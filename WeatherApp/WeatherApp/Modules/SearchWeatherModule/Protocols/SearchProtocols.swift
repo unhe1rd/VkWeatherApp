@@ -16,6 +16,7 @@ protocol SearchModuleOutput: AnyObject {
 
 protocol SearchViewInput: AnyObject {
     func configure(with model: SearchViewModel)
+    func configureCityView(with model: SearchViewModel, cityName: String)
 }
 
 protocol SearchViewOutput: AnyObject {

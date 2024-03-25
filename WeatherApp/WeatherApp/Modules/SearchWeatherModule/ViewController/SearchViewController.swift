@@ -176,12 +176,11 @@ extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath){
             
-//            let cityName = (cell.textLabel?.text) ?? ""
-//            let viewToPresent = CityWeatherView()
-//            viewToPresent.configue(with: cityName, model: searchModel!)
-//            DispatchQueue.main.async {
-//                self.output.didTapOnCityTabel(cityName)
-//            }
+            let cityName = (cell.textLabel?.text) ?? ""
+            DispatchQueue.main.async {
+                self.output.didTapOnCityTabel(cityName)
+                self.configureCityView(with: self.searchModel!, cityName: cityName)
+            }
             
             tableView.isHidden = true
             messageLabel.isHidden = false
@@ -194,10 +193,21 @@ extension SearchViewController: UITableViewDataSource {
 }
 
 
-
 //Setup View by Presenter
 extension SearchViewController: SearchViewInput {
-    func configure(with model: SearchViewModel) {
+    func configureCityView(with model: SearchViewModel, cityName: String) {
+        self.searchModel = model
+
+        DispatchQueue.main.async {
+            self.cityView.configue(with: cityName, model: model)
+        }
+    }
+    
+    func configure(with model: SearchViewModel){
         self.searchModel = model
     }
+    
+    func didLoadView(){
+        
+    }  
 }

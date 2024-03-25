@@ -16,12 +16,13 @@ final class CityWeatherView: UIView {
 //    let temp: String
 //    let pressure: String
 //    let humidity: String
-//    var weatherImage = UIImage()
+    
     private let cityNameLabel = UILabel()
     private let dateLabel = UILabel()
+    private var weatherImage = UIImageView()
     
-    private let temperatureView = UIView()
-    private let windSpeedView = UIView()
+    private let temperatureView = CitySubview()
+    private let windSpeedView = CitySubview()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,6 +38,8 @@ final class CityWeatherView: UIView {
     
     func configue(with cityName: String, model: SearchViewModel){
         cityNameLabel.text = cityName
+        dateLabel.text = model.date
+        weatherImage.image = model.weatherImage
     }
 }
 
@@ -46,6 +49,9 @@ private extension CityWeatherView {
         backgroundColor = Constants.backgroundSubviewsColor
         
         setupCityNameLabel()
+        setupDateLabel()
+        setupWeatherImage()
+        setupTemperatureView()
     }
     
     
@@ -53,7 +59,7 @@ private extension CityWeatherView {
         addSubview(cityNameLabel)
         cityNameLabel.translatesAutoresizingMaskIntoConstraints = false
         cityNameLabel.font = UIFont.systemFont(ofSize: 32)
-        cityNameLabel.textColor = Constants.textColorInCell
+        cityNameLabel.textColor = Constants.textColorInSubviews
         cityNameLabel.text = "-"
         
         NSLayoutConstraint.activate([
@@ -61,5 +67,41 @@ private extension CityWeatherView {
             cityNameLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             cityNameLabel.bottomAnchor.constraint(equalTo: topAnchor, constant: 48)
         ])
+    }
+    
+    
+    func setupDateLabel(){
+        addSubview(dateLabel)
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.font = UIFont.systemFont(ofSize: 24)
+        dateLabel.textColor = Constants.textColorInSubviews
+        dateLabel.text = "No data"
+        
+        NSLayoutConstraint.activate([
+            dateLabel.topAnchor.constraint(equalTo: cityNameLabel.bottomAnchor, constant: 4),
+            dateLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ])
+    }
+    
+    func setupWeatherImage(){
+        addSubview(weatherImage)
+        weatherImage.translatesAutoresizingMaskIntoConstraints = false
+        weatherImage.image = UIImage(systemName: "exclamationmark.icloud.fill")
+        weatherImage.tintColor = Constants.imageColor
+        weatherImage.contentMode = .scaleAspectFit
+        weatherImage.clipsToBounds = false
+        
+        let imageSize:CGFloat = 30
+        NSLayoutConstraint.activate([
+            weatherImage.centerXAnchor.constraint(equalTo: centerXAnchor),
+            weatherImage.widthAnchor.constraint(equalToConstant: imageSize),
+            weatherImage.heightAnchor.constraint(equalToConstant: imageSize),
+            weatherImage.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8)
+        ])
+    }
+    
+    func setupTemperatureView(){
+        addSubview(temperatureView)
+        temperatureView.translatesAutoresizingMaskIntoConstraints = false
     }
 }

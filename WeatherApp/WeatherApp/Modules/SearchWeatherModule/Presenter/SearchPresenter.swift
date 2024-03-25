@@ -19,7 +19,7 @@ extension SearchPresenter: SearchModuleOutput{}
 
 extension SearchPresenter: SearchViewOutput{
     func didLoadView(){
-        
+        loadData(city: "Moscow")
     }
     
     func didChangeSearchText(_ searchText: String) {

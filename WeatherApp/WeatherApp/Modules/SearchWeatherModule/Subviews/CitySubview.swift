@@ -64,7 +64,7 @@ private extension CitySubview {
         
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: topAnchor, constant: 60),
-            label.centerXAnchor.constraint(equalTo: subImage.centerXAnchor),
+            label.leadingAnchor.constraint(equalTo: subImage.leadingAnchor, constant: 4),
             label.bottomAnchor.constraint(equalTo: topAnchor, constant: 100)
         ])
     }
