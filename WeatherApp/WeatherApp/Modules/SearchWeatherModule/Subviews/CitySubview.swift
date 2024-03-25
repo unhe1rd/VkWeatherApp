@@ -1,14 +1,13 @@
 //
-//  ScrollSubview.swift
+//  CitySubview.swift
 //  WeatherApp
 //
-//  Created by Mike Ulanov on 24.03.2024.
+//  Created by Mike Ulanov on 25.03.2024.
 //
 
 import UIKit
 
-
-final class ScrollSubview: UIView {
+final class CitySubview: UIView {
     let label = UILabel()
     let subImage = UIImageView()
 
@@ -31,7 +30,7 @@ final class ScrollSubview: UIView {
 }
 
 
-private extension ScrollSubview {
+private extension CitySubview {
     func setupSubviewUI(){
         setupImage()
         setupLabel()
@@ -53,7 +52,6 @@ private extension ScrollSubview {
             subImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
         ])
     }
-    
     
     func setupLabel(){
         addSubview(label)

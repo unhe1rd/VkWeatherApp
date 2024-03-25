@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 final class TabBarController: UITabBarController {
     
@@ -23,21 +24,22 @@ final class TabBarController: UITabBarController {
 private extension TabBarController {
     
     func setupTabBar() {
-        tabBar.backgroundColor = .black
-        tabBar.tintColor = .white
+        tabBar.tintColor = Constants.tabBarTintColor
+        tabBar.barTintColor = Constants.barTintColor
     }
     
     
     func setupTabs() {
-
+        let faqVC = UIHostingController(rootView: FaqView())
+        faqVC.tabBarItem.image = UIImage(systemName: "questionmark.circle.fill")!
+        
         let mainVC = WeatherAssembly.assembly()
         mainVC.tabBarItem.image = UIImage(systemName: "smoke.fill")
         
-        let searchVC = WeatherAssembly.assembly()
+        let searchVC = SearchAssembly.assembly()
         searchVC.tabBarItem.image = UIImage(systemName: "location.magnifyingglass")
         
-        
-        viewControllers = [mainVC, searchVC]
+        viewControllers = [faqVC, mainVC, searchVC]
     }
     
 }

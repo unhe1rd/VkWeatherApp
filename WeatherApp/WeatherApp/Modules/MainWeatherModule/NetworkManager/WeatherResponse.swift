@@ -25,10 +25,8 @@ struct CurrentWeatherResponse: Decodable {
     let humidity: Int
     let uvi: Double
     let clouds: Int?
-    let visibility: Int
+    let visibility: Int?
     let wind_speed: Double
-    let wind_deg: Int
-    let wind_gust: Double
     let weather: [Weather]
 }
 
@@ -43,8 +41,6 @@ struct DailyWeatherResponse: Decodable {
     let pressure: Int
     let humidity: Int
     let wind_speed: Double
-    let wind_deg: Int
-    let wind_gust: Double
     let clouds: Int?
     let pop: Double?
     let rain: Double?

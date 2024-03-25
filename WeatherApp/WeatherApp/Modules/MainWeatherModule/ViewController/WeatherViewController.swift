@@ -69,6 +69,7 @@ private extension WeatherViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundColor = Constants.backgroundSubviewsColor
         
         tableView.layer.cornerRadius = 16
         tableView.register(TableViewCell.self, forCellReuseIdentifier: "TableViewCell")
@@ -88,7 +89,7 @@ private extension WeatherViewController {
 
 extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let tableViewHeight = tableView.bounds.height - tableView.sectionHeaderHeight
+//        let tableViewHeight = tableView.bounds.height - tableView.sectionHeaderHeight
 //        return tableViewHeight / CGFloat(weatherCellModel.count)
         return 60
     }
@@ -118,18 +119,23 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Я нажал на \(indexPath.row)")
-        
-        let viewToPresent = WeatherViewHeader()
-        viewToPresent.myLocationLabel.isHidden = true
-        viewToPresent.delegate = self
-        
-        setupBlackOverlayView()
-        
-        view.addSubview(blackOverlayView)
-        viewToPresent.modalPresentationStyle = .popover
-        viewToPresent.configureFromTable(with: weatherCellModel[indexPath.row])
-        present(viewToPresent, animated: true, completion: nil)
+        if let cell = tableView.cellForRow(at: indexPath){
+            cell.contentView.backgroundColor = UIColor.clear
+            
+            let viewToPresent = WeatherViewHeader()
+            viewToPresent.myLocationLabel.isHidden = true
+            viewToPresent.delegate = self
+            
+            if let selectedIndexPath = tableView.indexPathsForSelectedRows?.first {
+                tableView.deselectRow(at: selectedIndexPath, animated: true)
+            }
+            
+            setupBlackOverlayView()
+            view.addSubview(blackOverlayView)
+            viewToPresent.modalPresentationStyle = .popover
+            viewToPresent.configureFromTable(with: weatherCellModel[indexPath.row])
+            present(viewToPresent, animated: true, completion: nil)
+        }
     }
 }
 
@@ -140,7 +146,6 @@ extension WeatherViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        print(locationManager.location?.coordinate ?? "nil location")
     }
     
    
@@ -187,6 +192,7 @@ extension WeatherViewController: WeatherViewInput {
         }
     }
 }
+
 
 extension WeatherViewController: WeatherViewDelegate {
     func didCloseWeatherView() {

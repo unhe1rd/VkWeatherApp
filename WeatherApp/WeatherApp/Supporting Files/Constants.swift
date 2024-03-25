@@ -21,5 +21,7 @@ enum Constants{
     //images and views
     static let imageColor = UIColor.black
     static let progressColor = UIColor(red: 135/255, green: 206/255, blue: 235/255, alpha: 1.0)
+    static let tabBarTintColor = UIColor.white
+    static let barTintColor = UIColor.lightGray
     
 }

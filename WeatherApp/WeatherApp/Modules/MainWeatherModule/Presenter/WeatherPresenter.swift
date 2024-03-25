@@ -51,10 +51,8 @@ private extension WeatherPresenter{
             pressure: String(weather.current.pressure),
             humidity: String(weather.current.humidity),
             uvi: String(weather.current.uvi),
-            visibility: String(weather.current.visibility / 1000) + " km",
-            wind_speed: String(Int(weather.current.wind_speed)) + " m/s",
-            wind_deg: String(weather.current.wind_deg),
-            wind_gust: String(weather.current.wind_gust))
+            visibility: String((weather.current.visibility ?? 10000) / 1000) + " km",
+            wind_speed: String(Int(weather.current.wind_speed)) + " m/s")
         
         let dailyWeather = weather.daily.map { itemWeather in
             let date = setupDate(timestamp: itemWeather.dt)
@@ -73,7 +71,6 @@ private extension WeatherPresenter{
             
             return WeatherCellModel(
                 date: date,
-                day: getWeekdayName(from: date),
                 minTemperature: String(Int(itemWeather.temp.min)) + "°",
                 maxTemperature: String(Int(itemWeather.temp.max)) + "°",
                 sunrise: setupDateWithHoursAndMinutes(timestamp: itemWeather.sunrise),
@@ -81,11 +78,9 @@ private extension WeatherPresenter{
                 moonrise: setupDateWithHoursAndMinutes(timestamp: itemWeather.moonrise),
                 moonset: setupDateWithHoursAndMinutes(timestamp: itemWeather.moonset),
                 moon_phase: String(itemWeather.moon_phase),
-                pressure: String(itemWeather.moon_phase),
+                pressure: String(itemWeather.pressure),
                 humidity: String(itemWeather.humidity),
                 wind_speed: String(Int(itemWeather.wind_speed)) + " m/s",
-                wind_deg: String(itemWeather.wind_deg),
-                wind_gust: String(itemWeather.wind_gust),
                 rainChance: Double(itemWeather.pop ?? 0),
                 uvi: String(itemWeather.uvi),
                 weatherImage: weatherImage
@@ -110,18 +105,5 @@ private extension WeatherPresenter{
         dateFormatter.dateFormat = "HH:mm"
         let formattedDate = dateFormatter.string(from: date)
         return formattedDate
-    }
-    
-    func getWeekdayName(from dateString: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MM yyyy HH:mm"
-        if let date = dateFormatter.date(from: dateString) {
-            let calendar = Calendar.current
-            let weekDay = calendar.component(.weekday, from: date)
-            dateFormatter.locale = Locale(identifier: "ru_RU") // Установка региональных настроек для вывода названия на русском
-            return dateFormatter.weekdaySymbols[weekDay - 1]
-        } else {
-            return "Неверный формат даты"
-        }
     }
 }

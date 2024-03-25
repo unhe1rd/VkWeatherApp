@@ -16,6 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let viewController = TabBarController()
+        viewController.selectedIndex = 1
         
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = viewController

@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 protocol WeatherModuleInput {
     var moduleOutput: WeatherModuleOutput? { get }
 }
