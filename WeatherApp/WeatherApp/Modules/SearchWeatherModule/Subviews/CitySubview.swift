@@ -44,7 +44,7 @@ private extension CitySubview {
         subImage.tintColor = .black
         subImage.contentMode = .scaleAspectFit
         subImage.clipsToBounds = false
-        let subImageSize: CGFloat = 50
+        let subImageSize: CGFloat = 40
         NSLayoutConstraint.activate([
             subImage.topAnchor.constraint(equalTo: topAnchor),
             subImage.heightAnchor.constraint(equalToConstant: subImageSize),
@@ -57,15 +57,15 @@ private extension CitySubview {
         addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        label.font = UIFont.systemFont(ofSize: 32)
+        label.font = UIFont.systemFont(ofSize: 40)
         label.textColor = Constants.textColorInSubviews
         label.textAlignment = .center
         label.text = "-"
         
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: topAnchor, constant: 60),
-            label.leadingAnchor.constraint(equalTo: subImage.leadingAnchor, constant: 4),
-            label.bottomAnchor.constraint(equalTo: topAnchor, constant: 100)
+            label.topAnchor.constraint(equalTo: topAnchor),
+            label.leadingAnchor.constraint(equalTo: subImage.trailingAnchor, constant: 4),
+            label.bottomAnchor.constraint(equalTo: subImage.bottomAnchor)
         ])
     }
 }

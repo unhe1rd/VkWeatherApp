@@ -8,7 +8,7 @@
 import UIKit
 import CoreLocation
 
-class WeatherViewController: UIViewController, CLLocationManagerDelegate {
+class WeatherViewController: UIViewController{
     //ViewController Properties
     private let output: WeatherViewOutput
     private var weatherModel: WeatherViewModel?
@@ -140,7 +140,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-extension WeatherViewController {
+extension WeatherViewController: CLLocationManagerDelegate{
     func getLocation() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -162,7 +162,6 @@ extension WeatherViewController {
                 }
                 
                 if let placemark = placemarks?.first, let city = placemark.locality {
-                    print("Город: \(city)")
                     DispatchQueue.main.async {
                         self.weatherViewHeader.getCity(with: city)
                     }

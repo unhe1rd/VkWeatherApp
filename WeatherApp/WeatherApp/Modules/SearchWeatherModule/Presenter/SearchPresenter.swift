@@ -58,8 +58,11 @@ private extension SearchPresenter{
             weatherImage = UIImage(systemName: "cloud.rain") ?? UIImage(systemName: "exclamationmark.icloud.fill")!
         } else if rowWeather.weather[0].main == "Clear" {
             weatherImage = UIImage(systemName: "sun.max")!
+        } else if rowWeather.weather[0].main == "Fog"{
+            weatherImage = UIImage(systemName: "cloud.fog")!
+        } else if rowWeather.weather[0].main == "Snow"{
+            weatherImage = UIImage(systemName: "cloud.snow")!
         } else {
-            print(rowWeather.weather[0].main)
             weatherImage = UIImage(systemName: "exclamationmark.icloud.fill")!
         }
         

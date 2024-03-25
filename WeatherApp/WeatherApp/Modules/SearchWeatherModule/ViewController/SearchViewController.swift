@@ -13,6 +13,7 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     
     private let output: SearchViewOutput
     private var searchModel: SearchViewModel?
+    private var searchDebouncer: Debouncer?
     
     private let titleLabel = UILabel()
     private let searchBar = UISearchBar()
@@ -125,6 +126,7 @@ private extension SearchViewController {
         view.addSubview(cityView)
         cityView.translatesAutoresizingMaskIntoConstraints = false
         cityView.layer.cornerRadius = 16
+        cityView.isHidden = true
         
         NSLayoutConstraint.activate([
             cityView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
@@ -138,12 +140,16 @@ private extension SearchViewController {
 //SearchBar
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
-        
-        DispatchQueue.main.async {
-            self.output.didChangeSearchText(searchText)
-        }
+        DispatchQueue.main.async { [self] in
+            output.didChangeSearchText(searchText)
+            searchDebouncer?.reset()
+            searchDebouncer = Debouncer(delay: 1) { [weak self] in
+                self!.configureCityView(with: self!.searchModel!, cityName: searchText)
+                self!.cityView.isHidden = false
+            }
+            searchDebouncer?.call()
     }
+}
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
         let isUsingDefaultIcon = searchBar.image(for: .bookmark, state: .normal) == UIImage(systemName: "house.fill")
@@ -182,8 +188,8 @@ extension SearchViewController: UITableViewDataSource {
                 self.configureCityView(with: self.searchModel!, cityName: cityName)
             }
             
-            tableView.isHidden = true
-            messageLabel.isHidden = false
+            tableView.isHidden = !tableView.isHidden
+            messageLabel.isHidden = !messageLabel.isHidden
             
             if let selectedIndexPath = tableView.indexPathsForSelectedRows?.first {
                 tableView.deselectRow(at: selectedIndexPath, animated: true)
@@ -196,15 +202,17 @@ extension SearchViewController: UITableViewDataSource {
 //Setup View by Presenter
 extension SearchViewController: SearchViewInput {
     func configureCityView(with model: SearchViewModel, cityName: String) {
-        self.searchModel = model
-
         DispatchQueue.main.async {
+            self.searchModel = model
             self.cityView.configue(with: cityName, model: model)
+            self.cityView.isHidden = false
         }
     }
     
     func configure(with model: SearchViewModel){
-        self.searchModel = model
+        DispatchQueue.main.async {
+            self.searchModel = model
+        }
     }
     
     func didLoadView(){

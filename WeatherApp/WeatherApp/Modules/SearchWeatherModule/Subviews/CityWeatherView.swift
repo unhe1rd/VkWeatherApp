@@ -8,14 +8,6 @@
 import UIKit
 
 final class CityWeatherView: UIView {
-//    let windSpeed: String
-//    let sunrise: String
-    
-//    let sunset: String
-    
-//    let temp: String
-//    let pressure: String
-//    let humidity: String
     
     private let cityNameLabel = UILabel()
     private let dateLabel = UILabel()
@@ -23,6 +15,10 @@ final class CityWeatherView: UIView {
     
     private let temperatureView = CitySubview()
     private let windSpeedView = CitySubview()
+    private let sunriseView = CitySubview()
+    private let sunsetView = CitySubview()
+    private let pressureView = CitySubview()
+    private let humidityView = CitySubview()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,7 +27,6 @@ final class CityWeatherView: UIView {
         setupSubviewUI()
     }
     
-
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -40,6 +35,13 @@ final class CityWeatherView: UIView {
         cityNameLabel.text = cityName
         dateLabel.text = model.date
         weatherImage.image = model.weatherImage
+        
+        temperatureView.configue(with: model.temp , image: UIImage(systemName: "thermometer.medium")!)
+        sunsetView.configue(with: model.sunset, image: UIImage(systemName: "sunset")!)
+        sunriseView.configue(with: model.sunrise, image: UIImage(systemName: "sunrise")!)
+        windSpeedView.configue(with: model.windSpeed, image: UIImage(systemName: "wind")!)
+        humidityView.configue(with: model.humidity, image: UIImage(systemName: "humidity")!)
+        pressureView.configue(with: model.pressure, image: UIImage(systemName: "gauge")!)
     }
 }
 
@@ -52,6 +54,11 @@ private extension CityWeatherView {
         setupDateLabel()
         setupWeatherImage()
         setupTemperatureView()
+        setupWindSpeedView()
+        setupSunriseView()
+        setupSunsetView()
+        setupPressureView()
+        setupHumidityView()
     }
     
     
@@ -63,9 +70,9 @@ private extension CityWeatherView {
         cityNameLabel.text = "-"
         
         NSLayoutConstraint.activate([
-            cityNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            cityNameLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            cityNameLabel.bottomAnchor.constraint(equalTo: topAnchor, constant: 48)
+            cityNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 32),
+            cityNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            cityNameLabel.bottomAnchor.constraint(equalTo: topAnchor, constant: 66)
         ])
     }
     
@@ -79,7 +86,7 @@ private extension CityWeatherView {
         
         NSLayoutConstraint.activate([
             dateLabel.topAnchor.constraint(equalTo: cityNameLabel.bottomAnchor, constant: 4),
-            dateLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
         ])
     }
     
@@ -93,7 +100,7 @@ private extension CityWeatherView {
         
         let imageSize:CGFloat = 30
         NSLayoutConstraint.activate([
-            weatherImage.centerXAnchor.constraint(equalTo: centerXAnchor),
+            weatherImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             weatherImage.widthAnchor.constraint(equalToConstant: imageSize),
             weatherImage.heightAnchor.constraint(equalToConstant: imageSize),
             weatherImage.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8)
@@ -103,5 +110,66 @@ private extension CityWeatherView {
     func setupTemperatureView(){
         addSubview(temperatureView)
         temperatureView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            temperatureView.topAnchor.constraint(equalTo: weatherImage.bottomAnchor, constant: 32),
+            temperatureView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            temperatureView.trailingAnchor.constraint(equalTo: trailingAnchor),
+        ])
+    }
+    
+    func setupWindSpeedView(){
+        addSubview(windSpeedView)
+        windSpeedView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            windSpeedView.topAnchor.constraint(equalTo: temperatureView.bottomAnchor, constant: 48),
+            windSpeedView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            windSpeedView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+    }
+    
+    func setupSunriseView(){
+        addSubview(sunriseView)
+        sunriseView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            sunriseView.topAnchor.constraint(equalTo: windSpeedView.bottomAnchor, constant: 48),
+            sunriseView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            sunriseView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+    }
+    
+    func setupSunsetView(){
+        addSubview(sunsetView)
+        sunsetView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            sunsetView.topAnchor.constraint(equalTo: sunriseView.bottomAnchor, constant: 48),
+            sunsetView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            sunsetView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+    }
+    
+    func setupPressureView(){
+        addSubview(pressureView)
+        pressureView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            pressureView.topAnchor.constraint(equalTo: sunsetView.bottomAnchor, constant: 48),
+            pressureView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            pressureView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+    }
+    
+    func setupHumidityView(){
+        addSubview(humidityView)
+        humidityView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            humidityView.topAnchor.constraint(equalTo: pressureView.bottomAnchor, constant: 48),
+            humidityView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            humidityView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
     }
 }

@@ -33,7 +33,6 @@ final class NetworkManager: NetworkManagerDescription {
             completion(.failure(NetworkError.invalidURL))
             return
         }
-        print(url)
 
         let dataTask = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error {

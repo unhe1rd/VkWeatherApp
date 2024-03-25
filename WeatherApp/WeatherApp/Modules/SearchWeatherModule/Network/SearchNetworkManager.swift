@@ -25,7 +25,6 @@ final class SearchNetworkManager: SearchManagerDescription {
             completion(.failure(NetworkError.invalidURL))
             return
         }
-        print(url)
 
         let dataTask = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error {
@@ -41,7 +40,6 @@ final class SearchNetworkManager: SearchManagerDescription {
             let decoder = JSONDecoder()
             do {
                 let response = try decoder.decode(SearchResponse.self, from: data)
-                print(response)
                 completion(.success(response))
             } catch {
                 completion(.failure(error))
