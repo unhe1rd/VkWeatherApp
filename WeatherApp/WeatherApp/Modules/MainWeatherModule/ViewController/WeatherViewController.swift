@@ -89,7 +89,8 @@ private extension WeatherViewController {
 extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let tableViewHeight = tableView.bounds.height - tableView.sectionHeaderHeight
-        return tableViewHeight / CGFloat(weatherCellModel.count)
+//        return tableViewHeight / CGFloat(weatherCellModel.count)
+        return 60
     }
     
     

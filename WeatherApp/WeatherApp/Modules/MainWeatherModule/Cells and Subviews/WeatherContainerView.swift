@@ -33,6 +33,7 @@ final class WeatherContainerView: UIView {
     func configure(with model: WeatherHeaderModel){
         temperatureView.configue(with: model.temp , image: UIImage(systemName: "thermometer.medium")!)
         sunsetView.configue(with: model.sunset, image: UIImage(systemName: "sunset")!)
+        //доделать сетап всех сабью и начать поиск!
     }
 }
 

@@ -48,8 +48,8 @@ private extension TableViewCell {
         setupDayLabel()
         setupWeatherImage()
         setupTempetatureLabel()
-        setupProgressBar()
         setupMaxTempetatureLabel()
+        setupProgressBar()
     }
     
     
@@ -116,7 +116,7 @@ private extension TableViewCell {
         NSLayoutConstraint.activate([
             progressBar.centerYAnchor.constraint(equalTo: centerYAnchor),
             progressBar.leadingAnchor.constraint(equalTo: tempetatureLabel.trailingAnchor, constant: 8),
-            progressBar.trailingAnchor.constraint(equalTo: tempetatureLabel.trailingAnchor, constant: 108),
+            progressBar.trailingAnchor.constraint(equalTo: maxTempetatureLabel.leadingAnchor, constant: -8),
             progressBar.heightAnchor.constraint(equalToConstant: 5)
         ])
     }
@@ -133,7 +133,7 @@ private extension TableViewCell {
         
         NSLayoutConstraint.activate([
             maxTempetatureLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            maxTempetatureLabel.leadingAnchor.constraint(equalTo: progressBar.trailingAnchor, constant: 8)
+            maxTempetatureLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])
     }
 }
