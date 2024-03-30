@@ -20,8 +20,8 @@ final class NetworkManager: NetworkManagerDescription {
     
     static let shared: NetworkManagerDescription = NetworkManager()
     
-    static let appId = "b1b35bba8b434a28a0be2a3e1071ae5b"
-    
+    static let appId = "5aa741a37ff6512516bcb3da3ea973f0"
+    //b1b35bba8b434a28a0be2a3e1071ae5b
     private init() {}
     
     func loadWeather(completion: @escaping (Result<WeatherResponse, Error>) -> Void) {
@@ -33,6 +33,7 @@ final class NetworkManager: NetworkManagerDescription {
             completion(.failure(NetworkError.invalidURL))
             return
         }
+        print(url)
 
         let dataTask = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error {
